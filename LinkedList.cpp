@@ -104,6 +104,42 @@ public:
         delete tail;
         tail = temp;
     }
+
+    void searchItr(int key){
+        Node* temp = head;
+        int pos = 0;
+        while(temp != NULL){
+            if(temp-> data == key){
+                cout << "found at index: " << pos << endl;
+                return;
+            }
+            temp = temp -> next;
+            pos++;
+        }
+        cout << "Key not found..." << endl;
+    }
+
+    int helper(Node* temp, int key){
+        if(temp == NULL){
+            return -1;
+        }
+
+        if(temp->data == key){
+            return 0;
+        }
+        int idx = helper(temp->next, key);
+
+        if(idx == -1){
+            return -1;
+        }
+
+        return idx + 1;
+    }
+
+    int searchRec(int key){
+        return helper(head, key);
+    }
+
 };
 
 
@@ -114,10 +150,9 @@ int main(){
    ll.push_back(2);
    ll.push_back(3);
    ll.push_front(0);
-   ll.printList();
-   ll.pop_front();
-   ll.pop_back();
     ll.printList();
+    
+    cout << ll.searchRec(3) << endl;
 
     return 0;
 }
