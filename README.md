@@ -1,2 +1,2 @@
 # CodeVault
- A collection of my DSA solutions, Python scripts, and coding experiments. 
+ A collection of my DSA solutions and coding experiments. 
