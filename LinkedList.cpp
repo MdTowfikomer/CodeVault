@@ -21,9 +21,9 @@ public:
 };
 
 class List{
+public:
     Node *head;
     Node *tail;
-public:
     List(){
         head = NULL;
         tail = NULL;
@@ -235,6 +235,25 @@ public:
 };
 
 
+    bool hasCycle(Node* head) {
+        Node *fast = head;
+        Node *slow = head;
+
+        while(fast != NULL && fast -> next != NULL){
+            fast = fast -> next -> next;
+            slow = slow -> next;
+
+            if(fast == slow){
+                cout << "LL loop exist\n";
+                return true;
+                break;
+            }
+        }
+        cout << "LL loop not exist \n";
+        return false;
+    }
+
+
 
 int main(){
    List ll;
@@ -244,9 +263,11 @@ int main(){
    ll.push_back(4);
    ll.push_back(5);
    ll.push_back(6);
-   ll.printList();
-   ll.removeNth(3);
-   ll.printList();
+   ll.tail->next = ll.head;
+
+   hasCycle(ll.head);
+   ll.tail->next = NULL;  // Break the cycle before destructor runs
+
    
     return 0;
 }
