@@ -57,7 +57,7 @@ public:
         }
     }
 
-    void printList(void){
+    void printList(){
         Node *temp = head;
         while(temp != NULL){
             cout << temp->data << "->";
@@ -119,6 +119,9 @@ public:
         cout << "Key not found..." << endl;
     }
 
+    int searchRec(int key){
+        return helper(head, key);
+    }
     int helper(Node* temp, int key){
         if(temp == NULL){
             return -1;
@@ -136,8 +139,28 @@ public:
         return idx + 1;
     }
 
-    int searchRec(int key){
-        return helper(head, key);
+
+
+    void reverseList(){
+        Node *cur = head;
+        Node *pre = NULL;
+
+        while(cur != NULL){
+            Node* next = cur -> next;
+            cur->next = pre;
+            pre = cur;
+            cur = next;
+        }
+        head = pre;
+    }
+
+    void midList(){
+        Node *lastPtr = head;
+        Node *midPtr = head;
+        while(lastPtr != NULL && lastPtr->next != NULL){
+            lastPtr = lastPtr->next->next;
+            midPtr = midPtr->next;
+        }
     }
 
 };
@@ -149,10 +172,14 @@ int main(){
    ll.push_back(1);
    ll.push_back(2);
    ll.push_back(3);
-   ll.push_front(0);
-    ll.printList();
-    
-    cout << ll.searchRec(3) << endl;
+   ll.push_back(4);
+   ll.printList();
+   ll.reverseList();
+   ll.printList();
+
+
+   
+
 
     return 0;
 }
