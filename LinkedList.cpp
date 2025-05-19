@@ -198,6 +198,40 @@ public:
         cout << "Valid palindrome \n";
         return true;
     }
+
+    int getSize(){
+        Node *temp = head;
+        int size = 0;
+        
+        while(temp != NULL){
+            temp = temp->next;
+            size++;
+        }
+        return size;
+    }
+
+    void removeNth(int n){ // n according to last nodes
+        int size = getSize();
+        if (n <= 0 || n > size) {
+        cout << "Invalid position to delete." << endl;
+        return;
+        }
+
+        if (n == size) {
+        Node* toDelete = head;
+        head = head->next;
+        delete toDelete;
+        return;
+        }
+
+        Node *pre = head;
+        for(int i = 0; i < size-n; i++){
+            pre = pre->next;
+        }
+        Node *toDelete = pre->next;
+        pre->next = pre->next->next;
+        delete toDelete;
+    }
 };
 
 
@@ -206,12 +240,13 @@ int main(){
    List ll;
    ll.push_back(1);
    ll.push_back(2);
-   ll.push_back(2);
-   ll.push_back(1);
+   ll.push_back(3);
+   ll.push_back(4);
+   ll.push_back(5);
+   ll.push_back(6);
    ll.printList();
-
-    ll.isPalindrome();
-    
+   ll.removeNth(3);
+   ll.printList();
    
     return 0;
 }
