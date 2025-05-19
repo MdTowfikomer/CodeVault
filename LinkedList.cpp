@@ -253,6 +253,41 @@ public:
         return false;
     }
 
+    void removeCycle(Node* head){
+        // detect cycle
+        Node* fast = head;
+        Node* slow = head;
+        bool isCycle = false;
+        while(fast != NULL && fast->next != NULL){
+            fast = fast->next->next;
+            slow = slow->next;
+            if(fast == slow){
+                cout << "Cycle/loop detected" << endl;
+                isCycle = true;
+                break;
+            }       
+        }
+        if(!isCycle){
+            cout << "Cycle/loop not detected" << endl;
+        }
+
+        slow = head;
+        if(slow == fast){ // special case for slow and head at the same position
+            while(fast->next != slow){
+                fast = fast->next;
+            }
+            fast->next = NULL; // remove cycle
+        } else{
+        Node* pre = fast;
+        while(fast != slow){
+            pre = fast;
+            fast = fast->next;
+            slow = slow->next;
+        }
+        pre -> next = NULL;
+        }
+    }
+
 
 
 int main(){
@@ -265,8 +300,9 @@ int main(){
    ll.push_back(6);
    ll.tail->next = ll.head;
 
-   hasCycle(ll.head);
-   ll.tail->next = NULL;  // Break the cycle before destructor runs
+   removeCycle(ll.head);
+//    ll.tail->next = NULL;  // Break the cycle before destructor runs (used for deactivating the destructor)
+    ll.printList();
 
    
     return 0;
