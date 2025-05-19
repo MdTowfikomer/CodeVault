@@ -163,6 +163,41 @@ public:
         }
     }
 
+     bool isPalindrome() {
+        // fist find the mid 
+        // reverse after the mid 
+        // compare it
+        Node *lastNode = head;
+        Node *midNode = head;
+        while(lastNode != NULL && lastNode->next != NULL){
+            midNode = midNode -> next;
+            lastNode = lastNode->next->next;
+        }
+        // Now reverse after the mid
+        Node *cur = midNode;
+        Node *pre = NULL;
+        while(cur != NULL){
+            Node *next = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = next;
+        }
+
+        // comparing the two halfes of the LL
+        Node* secHead = pre;
+        Node* firHead = head;
+
+        while(firHead != NULL && secHead != NULL){
+            if(firHead -> data != secHead -> data){
+                cout << "Invalid palindrome \n";
+                return false;
+            }
+            firHead = firHead->next;
+            secHead = secHead->next;
+        }
+        cout << "Valid palindrome \n";
+        return true;
+    }
 };
 
 
@@ -171,15 +206,12 @@ int main(){
    List ll;
    ll.push_back(1);
    ll.push_back(2);
-   ll.push_back(3);
-   ll.push_back(4);
-   ll.printList();
-   ll.reverseList();
+   ll.push_back(2);
+   ll.push_back(1);
    ll.printList();
 
-
+    ll.isPalindrome();
+    
    
-
-
     return 0;
 }
