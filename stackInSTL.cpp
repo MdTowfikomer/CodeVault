@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+#include <string>
 using namespace std;
 
 
@@ -16,26 +17,35 @@ void pushAtback(stack<int>& s, int val){
     s.push(temp);   // pushing the old top value in the stack
 }
 
+string reverseString(string str){   // str is input string
+    string ans;     // ans is output string 
+    stack<char> s;   // stack to reverse the string
 
+    for(int i = 0; i < str.size(); i++){
+        s.push(str[i]);     // pusing each element into the stack
+    }
+
+    while(!s.empty()){
+        char top = s.top(); // storing the stack values in top variable
+        ans += top; // adding 'top' variable to ans string 
+        s.pop();    // empty the stack
+    }
+
+    return ans;
+}
 
 int main(){
     // STL stack
-    stack<int> s;
+    // stack<char> s;
 
-    pushAtback(s, 6);
+    // while(!s.empty()){
+    //     cout << s.top() << endl;
+    //     s.pop();
+    // }
 
-    s.push(5);
-    s.push(4);
-    s.push(3);
-    s.push(2);
-    s.push(1);
+    string str = "Md Towfik omer";
 
-
-    while(!s.empty()){
-        cout << s.top() << endl;
-        s.pop();
-    }
-
+    cout << "reverse: "<< reverseString(str) << endl;
 
     return 0;
 }

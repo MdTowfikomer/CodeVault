@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "prime": "cpp",
+        "ostream": "cpp"
+    }
+}
