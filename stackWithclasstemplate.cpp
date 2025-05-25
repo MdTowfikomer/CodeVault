@@ -2,7 +2,8 @@
 #include <vector>
 using namespace std;
 
-// stack implementation using class template
+// stack implementation using class template with vectors
+
 template<class T>
 class Stack{
     vector<T> vec;
