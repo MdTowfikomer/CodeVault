@@ -62,6 +62,7 @@ void printStack(stack<int> &s){
     return;
 }
 
+// stock span function to find the 
 vector<int> stockSpan(vector<int>& stock){
     vector<int> span(stock.size(), 0);
     stack<int> s;// stack
@@ -85,6 +86,7 @@ vector<int> stockSpan(vector<int>& stock){
     return span;
 }
 
+// next greater function to find the next greater element of the every elements 
 vector<int> nexGreater(vector<int>& vec){
     int n = vec.size();
     vector<int> ans(n,0);// initializing ans vector with size of vec 
@@ -107,6 +109,40 @@ vector<int> nexGreater(vector<int>& vec){
     }
 
     return ans;
+}
+
+// vaild parentheseis function
+bool isValid(string s) {
+    stack<char> keep;
+    for(int i = 0; i < s.size(); i++){
+        char ch = s[i];
+        // check for opening brackets
+        if(ch == '(' || ch == '{' || ch == '['){
+            keep.push(ch);
+        } else{
+
+            if(keep.empty()){
+                return false;
+            }
+
+            if(ch == ')' && keep.top() != '('){
+                return false;
+            }
+            if(ch == '}' && keep.top() != '{'){
+                return false;
+            } 
+            if(ch == ']' && keep.top() != '['){
+                return false;
+            }
+            keep.pop();
+        }
+    }
+
+    if(!keep.empty()){
+        return false;
+    }
+    
+    return true;
 }
 
 
