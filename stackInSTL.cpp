@@ -145,17 +145,39 @@ bool isValid(string s) {
     return true;
 }
 
+// Duplicate parenthesis problem
+
+bool isDuplicateparenthesis(string str){
+    stack<char> s;                          // stack to track and keep the remaining expresion
+
+    for(int i = 0; i < str.size(); i++){
+        char ch = str[i];   
+        if(ch !=  ')'){
+            s.push(ch);
+        } else{
+            if(s.top() == '('){
+                cout << "Duplicate bracket found\n";
+                return true;    // duplicate bracket found
+            }
+            while(s.top() != '('){  // or till the ')' close bracket found pop
+                s.pop();
+            }
+            s.pop();      // pop the after poping the expression pop the open bracket as well 
+        }
+    }
+    cout << "Expression did not have any duplicate bracket\n";
+    return false; // if the expression did not have any dublicate brackets
+}
+
+
 
 int main(){ 
-    vector<int> arr = {6,8,0,1,3};
-    vector<int> ans(arr.size(), 0);
+    string str1 = "(a+b)";
+    string str2 = "(((a+b)+ c))";
 
-    ans = nexGreater(arr);
+    cout << isDuplicateparenthesis(str1) << endl;
+    cout << isDuplicateparenthesis(str2) << endl;
+
     
-    for(int i = 0; i < ans.size(); i++){
-        cout << ans[i] << " ";
-    }
-    cout << endl;
-
     return 0;
 }
