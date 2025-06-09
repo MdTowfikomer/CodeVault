@@ -46,9 +46,18 @@ public:
         return curSize == 0;
     }
     
+    int size(){
+        return capacity;
+    }
 };
 
-
+void printQueue(Queue q){
+    while(!q.empty()){
+        cout << q.front() << " ";
+        q.pop();
+    }
+    cout << endl;
+}
 
 int main(){
     Queue q(5);
@@ -58,11 +67,16 @@ int main(){
     q.push(4);
     q.push(5);
     q.push(6);
-
-   cout <<  q.front() << endl;
+    
+    cout <<  q.front() << endl;
     q.pop();
     cout << q.front() << endl;
-    
+    q.push(7);
+    q.push(8);
+    q.push(9);
+
+    printQueue(q);
+
 
 
     return 0;
