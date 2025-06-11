@@ -1,0 +1,57 @@
+#include <stdio.h>
+#define SIZE 6
+
+    // Stack using array
+int top = -1;// top variable to track the top of the stack
+int stack[SIZE];    // declaration of 
+
+void push(int val){
+    if(top == SIZE-1){
+        printf("Stack is full..\n");
+        return;
+    }
+    top++;
+    stack[top] = val;
+}
+
+void pop(void){
+    if(top == -1){
+        printf("Stack is empty..\n");
+        return;
+    }
+    printf("%d is deleted...", stack[top]);
+    top--;
+}
+
+void printStack(void){
+     if(top == -1){
+        printf("Stack is empty..\n");
+        return;
+    }
+    int temp = top;
+    while(temp != -1){
+        printf("%d\n", stack[temp]);
+        temp--;
+    }
+    printf("\n");
+    return;
+}
+
+int main(){
+    push(5);
+    push(4);
+    push(3);
+    push(2);
+    push(1);
+    printStack();
+
+    pop(); 
+
+    printf("After poping the top\n");
+    printStack();
+
+    return 0;
+}
+
+
+
