@@ -18,7 +18,7 @@ static int idx = -1;
 
 Node* buildTree(vector<int> nums){
     idx++;
-    if(nums[idx] == -1){
+    if(nums[idx] == -1 || idx >= nums.size()){
         return NULL;
     }
 

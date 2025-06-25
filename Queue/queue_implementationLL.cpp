@@ -71,6 +71,6 @@ int main(){
         q.pop();
     }
     cout << endl;
-    
+     
     return 0;
 }
