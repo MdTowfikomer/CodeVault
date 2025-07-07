@@ -22,7 +22,7 @@ int fractionalKnapsack(vector<int> value, vector<int> weight, int W){
         int idx = ratio[i].second;
         if(weight[idx] <= W){
             ans += value[idx];
-            W -= weight[idx  ];
+            W -= weight[idx   ];
         } else{
             ans += W * ratio[i].first;
             W = 0;
