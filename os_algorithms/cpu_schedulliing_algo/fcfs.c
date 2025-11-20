@@ -9,9 +9,9 @@ int main(){
 
     int bt[n], wt[n], tat[n];
 
-    printf("Enter brust times:\n");
+    printf("Enter burst times:\n");
     for(i= 0; i< n; i++){
-        printf("P%d: ", i+1);
+        printf("P%d: ", i+1); //remember
         scanf("%d", &bt[i]);
     }
 

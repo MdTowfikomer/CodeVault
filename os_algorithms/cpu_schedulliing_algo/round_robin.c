@@ -28,12 +28,12 @@ int main(){
         for(i = 0; i < n; i++){
             if(rem_bt[i] > 0){
                if(rem_bt[i] <= tq){
-                time += rem_bt[i];
-                rem_bt[i] = 0;
-                remain--;
-                tat[i] = time;
+                time += rem_bt[i]; // add all the rem_bt to time
+                rem_bt[i] = 0;  // initialize the rem_bt to 0 
+                remain--;   // reduce one process
+                tat[i] = time;  // add tat to the time taken by the process
                } else{
-                time += tq;
+                time += tq; // add time quatum to the time..!
                 rem_bt[i] -= tq; // 5-4 = 1
                }
             }
