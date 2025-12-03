@@ -1,73 +1,58 @@
 #include <stdio.h>
-#include <stdbool.h>
+#include <semaphore.h>
+#include <pthread.h>
+#include <unistd.h>
+#include <stdlib.h>
 
-void FIFO(int pages[], int n, int capacity){
-    int frame[capacity]; // array that stores page
-    int pageFaults = 0; // status pages
-    int index = 0;
+#define N 5 
+#define LEFT(i) (i)
+#define RIGHT(i) ((i+1)%N)
 
-    for(int i = 0; i < capacity; i++){
-        frame[i] = -1;
+sem_t mutex;
+sem_t forks[N];
+
+void* philosopher(void *arg){
+    int id = *(int *)arg;
+
+    while(1){
+        printf("Philosopher %d is thinking\n", id);
+        sleep(1);
+
+        sem_wait(&mutex);
+
+        sem_wait(&forks[LEFT(id)]);
+        sem_wait(&forks[RIGHT(id)]);
+
+        sem_post(&mutex);
+
+        printf("Philosopher %d is eating\n", id);
+        sleep(1);
+
+        sem_post(&forks[LEFT(id)]);
+        sem_post(&forks[RIGHT(id)]);
+
+        printf("Philosopher %d is finished eating\n", id);
     }
-
-    printf("page\tFrames\tPage Fault\n");
-
-    for(int i = 0; i < n; i++){
-        bool found = false; // marks as false
-
-        // check for repeated pages
-        for(int j = 0; j < capacity; j++){
-            if(frame[j] == pages[i]){  
-                found = true;  // if true break
-                break;
-            }
-        }
-
-        if(!found){
-            frame[index] = pages[i];
-            index = (index + 1) % capacity; // circular queue..!! 
-            pageFaults++;
-
-            printf("%d\t", pages[i]);
-            for(int j = 0; j < capacity; j++){
-                if(frame[j] != -1){
-                    printf("%d ", frame[j]);
-                } else{
-                    printf("- ");
-                }
-            }
-                printf("\tYes\n");
-        } else{
-                printf("%d\t", pages[i]);
-                for(int j = 0; j < capacity; j++){
-                    if(frame[j] != -1){
-                        printf("%d ", frame[j]);
-                    } else{
-                        printf("- ");
-                    }
-                }
-                printf("\tNo\n");
-        }
-    }
-    printf("\nTotal Page Faults: %d\n", pageFaults);
-    printf("Page Fault Rate: %.2f%%\n", (float)pageFaults * 100 / n);
 }
 
-
 int main(){
-    int pages[] = {7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2};
-    int n = sizeof(pages)/sizeof(int);
+    pthread_t tid[N];
+    int ids[N];
 
-    int capacity = 3;
+    sem_init(&mutex, 0, 1);
 
-    printf("Page Referenece String: ");
-    for(int i =0; i < n; i++){
-        printf("%d ", pages[i]);
+    for(int i =0 ; i < N; i++){
+        sem_init(&forks[i], 0, 1);
     }
 
-    printf("\nNumber of Frames: %d\n", capacity);
+    for(int i= 0; i < N; i++){
+        ids[i] = i;
+        pthread_create(&tid[i], NULL, philosopher, &ids[i]);
+    }
 
-    FIFO(pages, n, capacity);
+    for(int i= 0; i < N; i++){
+        pthread_join(tid[i], NULL);
+    }
 
     return 0;
 }

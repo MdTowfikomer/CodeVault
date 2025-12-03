@@ -22,7 +22,7 @@ int main() {
 
     printf("Enter Available resources:\n");
     for (int j = 0; j < m; j++)
-        scanf("%d", &avail[j]);
+        scanf("%d", &avail[j]); // 3 1
 
     // Need = Max - Allocation
     for (int i = 0; i < n; i++)
@@ -43,7 +43,7 @@ int main() {
                 }
                 if (possible) {
                     for (int j = 0; j < m; j++)
-                        avail[j] += alloc[i][j];
+                        avail[j] += alloc[i][j]; 
 
                     safe[count++] = i;
                     finish[i] = 1;
