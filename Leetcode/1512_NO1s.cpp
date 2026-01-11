@@ -28,7 +28,7 @@ int numSub(string s) {
 
 int main() {
     // Test cases for numSub
-    cout << "Test Case 1: s = \"0110111\"" << endl;
+    cout << "Test Case 1: s = \"0110111\"" << endl; 
     cout << "Expected: 9" << endl;
     cout << "Result: " << numSub("0110111") << endl << endl;
 
